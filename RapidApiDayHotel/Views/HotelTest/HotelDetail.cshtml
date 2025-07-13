@@ -1,0 +1,43 @@
+﻿@model RapidApiDayHotel.Models.HotelTestViewModel
+@{
+    Layout = null;
+}
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container mt-4">
+    <h2>@Model.Property?.Name</h2>
+    <p class="text-muted">@Model.AccessibilityLabel</p>
+
+    <div class="row">
+        @foreach (var photo in Model.Property?.PhotoUrls ?? new List<string>())
+        {
+            <div class="col-md-4 mb-3">
+                <img src="@photo" class="img-fluid rounded shadow-sm" />
+            </div>
+        }
+    </div>
+
+    <div class="card p-3 mb-3">
+        <h5>Check-in</h5>
+        <p>@Model.Property?.Checkin?.FromTime - @Model.Property?.Checkin?.UntilTime</p>
+
+        <h5>Check-out</h5>
+        <p>@Model.Property?.Checkout?.FromTime - @Model.Property?.Checkout?.UntilTime</p>
+
+        <h5>Fiyat</h5>
+        <p>
+            <strong>@Model.Property?.PriceBreakdown?.GrossPrice?.Value @Model.Property?.PriceBreakdown?.GrossPrice?.Currency</strong><br />
+            <span class="text-muted">
+                İndirimsiz:
+                @Model.Property?.PriceBreakdown?.GrossPrice?.Value
+                @Model.Property?.PriceBreakdown?.GrossPrice?.Currency
+            </span><br />
+            <span class="text-muted">Vergiler: +@Model.Property?.PriceBreakdown?.ExcludedPrice?.Value</span>
+        </p>
+
+        <h5>Değerlendirme</h5>
+        <p>@Model.Property?.ReviewScore - @Model.Property?.ReviewScoreWord</p>
+    </div>
+
+    <a href="@Url.Action("HotelList", "HotelTest")" class="btn btn-secondary">Geri Dön</a>
+</div>

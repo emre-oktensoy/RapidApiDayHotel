@@ -1,0 +1,60 @@
+﻿@model List<RapidApiDayHotel.Models.HotelTestViewModel>
+@{
+    Layout = null;
+    int count = 0;
+}
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container">
+    <br />
+    <br />
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.ErrorMessage ?? "Otel bulunamadı."
+        </div>
+        <a href="@Url.Action("SearchHotel", "HotelTest")" class="btn btn-primary">Yeni Arama Yap</a>
+    }
+    else
+    {
+        <table class="table table-hover">
+            <tr>
+                <th>#</th>
+                <th>Otel Adı</th>
+                <th>Fotoğraf</th>
+                <th>Fiyat (USD)</th>
+                <th>İndirimsiz Fiyat (USD)</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@(++count)</td>
+                    <td>@item.Property.Name</td>
+                    <td>
+                        @if (item.Property.PhotoUrls != null && item.Property.PhotoUrls.Any())
+                        {
+                            <img src="@item.Property.PhotoUrls[0]" style="width: 100px; height: 100px;" />
+                        }
+                        else
+                        {
+                            <span>Fotoğraf yok</span>
+                        }
+                    </td>
+                    <td>@item.Property.PriceBreakdown.GrossPrice.Value</td>
+                    <td>
+                        @if (item.Property.PriceBreakdown.GrossPrice != null)
+                        {
+                            @item.Property.PriceBreakdown.GrossPrice.Value
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td><a href="@Url.Action("HotelDetail", "HotelTest", new { id = item.HotelId })" class="btn btn-info btn-sm">Detay</a>
+</td>
+                </tr>
+            }
+        </table>
+    }
+</div>
