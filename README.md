@@ -1,4 +1,4 @@
-🌍 Otel Arama Sistemi
+🌍 Booking.com Otel Arama Sistemi
 
 Bu proje, ASP.NET Core MVC altyapısıyla geliştirilen modern ve kullanıcı dostu bir otel arama ve detay görüntüleme platformudur. 
 Sistem, Booking.com API'si üzerinden gerçek zamanlı otel verilerini çekerek, ziyaretçilere güncel ve doğru bilgiler sunar.
